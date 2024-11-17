@@ -9,15 +9,22 @@ function OTPVerification() {
 
   const navigate = useNavigate(); // Initialize navigate function
 
-  useEffect(() => {
+  // Generate a new verification code
+  const generateVerificationCode = () => {
     const code = Math.floor(100000 + Math.random() * 900000); // 6-digit number
     setVerificationCode(code);
+    setTimer(60); // Reset timer
+    setIsDisabled(false);
+  };
+
+  useEffect(() => {
+    generateVerificationCode();
   }, []);
 
   // Countdown timer logic
   useEffect(() => {
     if (timer === 0) {
-      setIsDisabled(true); 
+      setIsDisabled(true);
       return;
     }
 
@@ -43,12 +50,15 @@ function OTPVerification() {
 
   // Navigate back to the login page
   const handleBackToLogin = () => {
-    navigate('/login'); // Assuming your login page route is '/login'
+    navigate('/'); // Assuming your login page route is '/login'
   };
 
   return (
-    <div style={{backgroundColor : "#023047"}} className="flex flex-col items-center h-screen pt-8 bg-gray-100">
-      <h2 className="text-4xl text-white  font-semibold mb-4">Enter 6-Digit Code</h2>
+    <div
+      style={{ backgroundColor: '#023047' }}
+      className="flex flex-col items-center h-screen pt-8 bg-gray-100"
+    >
+      <h2 className="text-4xl text-white font-semibold mt-44 mb-4">Enter 6-Digit Code</h2>
       <p className="text-xl text-white mb-4">Verification Code: {verificationCode}</p>
 
       <input
@@ -59,8 +69,7 @@ function OTPVerification() {
         maxLength={6}
         className="border border-gray-300 rounded-md p-2 mb-4 w-64 text-center"
         disabled={isDisabled}
-        style={{backgroundColor : "#457b9d"}}
-
+        style={{ backgroundColor: '#457b9d' }}
       />
 
       <button
@@ -71,11 +80,29 @@ function OTPVerification() {
         Verify
       </button>
 
+      {/* Timer */}
       <div className="mt-4">
-        <p className="text-lg text-white ">Time Remaining: {timer}s</p>
+        <p className="text-lg text-white">Time Remaining: {timer}s</p>
       </div>
 
+      {/* Resend OTP */}
+      {timer === 0 && (
+        <button
+          onClick={generateVerificationCode}
+          className="mt-4 bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600"
+        >
+          Resend OTP
+        </button>
+      )}
 
+      {/* Back to Login */}
+      <button
+        onClick={handleBackToLogin}
+        className="mt-4 bg-gray-300 text-black py-2 px-4 rounded-md hover:bg-gray-400"
+      >
+        Back to Login
+      </button>
+      <p className="text-white mt-2 text-sm">Go back if you want to change your mobile number.</p>
     </div>
   );
 }

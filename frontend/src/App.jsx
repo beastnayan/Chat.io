@@ -1,5 +1,6 @@
 import LoginPage  from './components/loginPage' 
 import OTPVerifiaction from './components/OTPVerification.jsx';
+import RegistrationPage from './components/RegistrationPage.jsx';
 import "./index.css";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/otp" element={<OTPVerifiaction/>} /> {/* This is your new route */}
+        <Route path="/registerationPage" element={<RegistrationPage/>} /> {/* This is your new route */}
       </Routes>
     </Router>
       
