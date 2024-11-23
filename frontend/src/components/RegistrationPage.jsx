@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { FaCamera } from "react-icons/fa";
 
 function RegistrationPage() {
   const [formData, setFormData] = useState({
     name: "",
     dob: "",
-    message: "",
     username: "",
   });
+
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,6 +16,14 @@ function RegistrationPage() {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -25,34 +35,51 @@ function RegistrationPage() {
   return (
     <div
       style={{ backgroundColor: "#023047" }}
-      className="flex flex-col items-center h-screen justify-center"
+      className="flex flex-col items-center min-h-screen justify-center px-4"
     >
-      {/* Image in the center */}
-      <img
-        // src="/logo.png" // Replace with your image path
-        // alt="Registration Logo"
-        className=" mb-8"
-      />
+      {/* Image Upload Section */}
+      <div className="relative mb-8">
+        <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+          {selectedImage ? (
+            <img
+              src={selectedImage}
+              alt="Uploaded"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <p className="text-gray-500 text-sm md:text-base">No Image</p>
+          )}
+        </div>
+
+        {/* Camera Icon */}
+        <label
+          htmlFor="imageInput"
+          className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-2 cursor-pointer"
+        >
+          <FaCamera size={18} />
+        </label>
+        <input
+          id="imageInput"
+          type="file"
+          accept="image/*"
+          capture="user" // Enables camera for mobile
+          className="hidden"
+          onChange={handleImageChange}
+        />
+      </div>
 
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        style={{ backgroundColor: "#014f86" }}
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-96"
+        className="bg-white shadow-md rounded px-6 py-6 sm:px-8 sm:py-8 w-full max-w-sm sm:max-w-md"
       >
-
-          {/* Image in the center */}
-      <img
-        src="/CHAT.IO LOGO.png" // Replace with your image path
-        alt="Registration Logo"
-        className="rounded-full  items-center ml-20   w-36 h-36 mb-8"
-      />
+        <h2 className="text-xl sm:text-2xl font-bold text-center text-blue-600 mb-4">
+          Register
+        </h2>
 
         {/* Name Input */}
         <div className="mb-4">
-          <label 
-          // style={{ color: "#001524" }}
-          className="block text-black text-sm font-bold mb-2">
+          <label className="block text-gray-700 text-sm sm:text-base font-bold mb-2">
             Full Name
           </label>
           <input
@@ -61,13 +88,13 @@ function RegistrationPage() {
             value={formData.name}
             onChange={handleChange}
             placeholder="Enter your full name"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-white-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
 
         {/* Date of Birth Input */}
         <div className="mb-4">
-          <label className="blocktext-black  text-sm font-bold mb-2">
+          <label className="block text-gray-700 text-sm sm:text-base font-bold mb-2">
             Date of Birth
           </label>
           <input
@@ -79,24 +106,9 @@ function RegistrationPage() {
           />
         </div>
 
-        {/* Customizable Message Input
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Message
-          </label>
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            placeholder="Enter a short message"
-            rows="4"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          ></textarea>
-        </div> */}
-
         {/* Username Input */}
         <div className="mb-4">
-          <label className="block text-black  text-sm font-bold mb-2">
+          <label className="block text-gray-700 text-sm sm:text-base font-bold mb-2">
             Username
           </label>
           <input
@@ -113,7 +125,7 @@ function RegistrationPage() {
         <div className="flex items-center justify-between">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
           >
             Register
           </button>
