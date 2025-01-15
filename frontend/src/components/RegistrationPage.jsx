@@ -12,9 +12,12 @@ function RegistrationPage() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(e.target.name);
+
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+      
     }));
   };
 
@@ -23,6 +26,8 @@ function RegistrationPage() {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
+      console.log(imageUrl , "Image irl");
+      
     }
   };
 

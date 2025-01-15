@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // To navigate back to login page
+import { useNavigate } from 'react-router-dom';
 
 function OTPVerification() {
   const [verificationCode, setVerificationCode] = useState('');
@@ -7,7 +7,7 @@ function OTPVerification() {
   const [timer, setTimer] = useState(60);
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate(); 
 
   // Generate a new verification code
   const generateVerificationCode = () => {

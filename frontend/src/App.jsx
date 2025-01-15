@@ -1,3 +1,4 @@
+import ChatWindow from './components/ChatWindow.jsx';
 import LoginPage  from './components/loginPage' 
 import OTPVerifiaction from './components/OTPVerification.jsx';
 import RegistrationPage from './components/RegistrationPage.jsx';
@@ -11,8 +12,10 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/otp" element={<OTPVerifiaction/>} /> {/* This is your new route */}
-        <Route path="/registerationPage" element={<RegistrationPage/>} /> {/* This is your new route */}
+        <Route path="/otp" element={<OTPVerifiaction/>} /> 
+        <Route path="/registerationPage" element={<RegistrationPage/>} /> 
+        <Route path="/chatwindow" element={<ChatWindow/>} />
+
       </Routes>
     </Router>
       

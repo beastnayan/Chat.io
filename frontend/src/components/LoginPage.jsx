@@ -1,6 +1,14 @@
 
 import React, { useState }  from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+
+
+
+
+
+
 
 function LoginPage() {
 
@@ -15,19 +23,32 @@ function handelInputChange(e){
 }
 
 
-function handelSendOTP()
+async function handelSendOTP()
 {
     // Validate phone number to be exactly 10 digits and numeric
     const phonePattern = /^\d{10}$/;
 
 
     if (phonePattern.test(phoneNumber)) {
-        // Phone number is valid (10 digits)
+
+        try{
+
+        let response = await axios.post("/api/v1/send-otp", {phoneNumber})
+
+        console.log(response.data);
+        
+        navigate("/otp")
+            
+        } 
+        catch (error) {
+           
+            console.log("Enter valid mobile no to recive otp: ",error);
+            
+            
+        }
         console.log('Sending OTP to:', phoneNumber);
   
-        // You can call an API to send OTP here
-        // sendOTP(phoneNumber);
-        navigate("/otp")
+       
     } else {
         // Invalid phone number
         setError('Please enter a valid 10-digit mobile number');
