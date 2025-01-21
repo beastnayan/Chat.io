@@ -1,68 +1,55 @@
-import React from 'react'
+import React from 'react';
 
-function UserSettings({ userName, fullName, mobileNumber, dateOfBirth, userProfilePicture }) {
+function UserSettings({ userName, fullName, mobilenumber, dateOfBirth, userProfilePicture }) {
+
+
+
+    
 
   return (
-
-
-    <div
-    className="absolute top-28 ml-44 bg-gray-400 p-4 shadow-lg rounded-lg border flex-col overflow-hidden flex items-start pl-60"
-    style={{width:'700px' , height:"500px"}}
-    >
-
-
-
-        {/* Image constrained within the box */}
-    
-        <div
-            className="w-32 h-32 ml-10 bg-green-500 rounded-full flex items-center justify-center overflow-hidden border-4 border-green-700"
-        >
-            <img
-                className="w-full h-full object-cover"
-                src={userProfilePicture}
-                alt="User"
-            />
-
+    <div className="w-full h-auto flex justify-center items-center absolute top-[25%]   z-10 ">
+      
+      <div className="bg-gray-400 p-6 shadow-lg rounded-lg border flex flex-col items-center max-w-lg w-full">
+        {/* Cancel Button */}
+        <div className="w-full flex justify-end">
+          <button
+          // onClick={openUserSetting}
+          className="text-white bg-blue-900 hover:bg-blue-800 p-2 rounded-full">
+            ✕
+          </button>
         </div>
 
-
-
-        {/* user detail */}
-
-        <div
-        className='mt-12 block'
-        style={{backgroundColor:"green"}}
-        >
-            <p 
-            className='p-3'
-            >
-            User Name : <span className='text-white'> {userName}</span>
-                
-            </p>
-
-            <p 
-            className='p-3'
-            >
-            Full Name: <span className='text-white'> {fullName}</span>
-                
-            </p>
-
-            <p 
-            className='p-3'
-            >
-            Mobile NO. : <span className='text-white'> {mobilenumber}</span>
-                
-            </p>
-            <p 
-            className='p-3'
-            >
-            D.O.B. : <span className='text-white'> {dateOfBirth}</span>
-                
-            </p>
+        {/* Profile Picture */}
+        <div className="w-32 h-32 rounded-full flex items-center justify-center overflow-hidden border-4 border-green-700">
+          <img
+            className="w-full h-full object-cover"
+            src={userProfilePicture}
+            alt="User"
+          />
         </div>
-    
+
+        {/* User Details */}
+        <div className="w-full text-left mb-9 mt-9">
+          <p className="p-2">
+            <span className="font-bold">User Name:</span>{' '}
+            <span className="text-white">{userName}</span>
+          </p>
+          <p className="p-2">
+            <span className="font-bold">Full Name:</span>{' '}
+            <span className="text-white">{fullName}</span>
+          </p>
+          <p className="p-2">
+            <span className="font-bold">Mobile No.:</span>{' '}
+            <span className="text-white">{mobilenumber}</span>
+          </p>
+          <p className="p-2">
+            <span className="font-bold">D.O.B.:</span>{' '}
+            <span className="text-white">{dateOfBirth}</span>
+          </p>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default UserSettings
+export default UserSettings;
