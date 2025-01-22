@@ -1,8 +1,9 @@
 import React from 'react';
 
-function UserSettings({ userName, fullName, mobilenumber, dateOfBirth, userProfilePicture }) {
+function UserSettings({ userName, fullName, mobilenumber, dateOfBirth, userProfilePicture ,openUserSetting}) {
 
 
+ 
 
     
 
@@ -13,7 +14,7 @@ function UserSettings({ userName, fullName, mobilenumber, dateOfBirth, userProfi
         {/* Cancel Button */}
         <div className="w-full flex justify-end">
           <button
-          // onClick={openUserSetting}
+          onClick={openUserSetting}
           className="text-white bg-blue-900 hover:bg-blue-800 p-2 rounded-full">
             ✕
           </button>
