@@ -10,6 +10,7 @@ import axios from "axios";
 
 
 
+
 function LoginPage() {
 
 const [phoneNumber , setphoneNumber] = useState('')
@@ -38,6 +39,8 @@ async function handelSendOTP()
         console.log(response.data);
         
         navigate("/otp")
+      
+
             
         } 
         catch (error) {
@@ -47,6 +50,7 @@ async function handelSendOTP()
             
         }
         console.log('Sending OTP to:', phoneNumber);
+        setphoneNumber("")
   
        
     } else {
@@ -64,11 +68,11 @@ setTimeout(() => {
 
     return (
         <>
-        <div style={{backgroundColor : "#023047"}} className="flex flex-col items-center h-screen pt-8">
+        <div  className="flex flex-col items-center bg-black h-screen pt-8">
             <img 
                 src="/CHAT.IO LOGO.png" 
                 alt="App Logo" 
-                className="h-56 w-56 mt-10 mb-20 rounded-full"
+                className="h-44 w-44 mt-10 mb-20 rounded-full"
             />
             <h2 className="text-4xl text-white   font-semibold mb-4">Phone Verification....</h2>
             <input 
@@ -86,6 +90,7 @@ setTimeout(() => {
 
             <button
                 onClick={handelSendOTP}
+                style={{backgroundColor : "#457b9d"}}
                 className="bg-blue-500   text-white py-2 px-4 rounded-md hover:bg-blue-600"
             >
                 Send OTP

@@ -32,23 +32,24 @@ function UserSettings({ userName, fullName, mobilenumber, dateOfBirth, userProfi
         {/* User Details */}
         <div className="w-full text-left mb-9 mt-9">
           <p className="p-2">
-            <span className="font-bold">User Name:</span>{' '}
-            <span className="text-white">{userName}</span>
+            <span className="font-bold">User Name :</span>{' '}
+            <span className="text-black">{userName}</span>
           </p>
           <p className="p-2">
-            <span className="font-bold">Full Name:</span>{' '}
-            <span className="text-white">{fullName}</span>
+            <span className="font-bold F">Full Name :</span>{' '}
+            <span className="text-black">{fullName}</span>
           </p>
           <p className="p-2">
             <span className="font-bold">Mobile No.:</span>{' '}
-            <span className="text-white">{mobilenumber}</span>
+            <span className="text-black">{mobilenumber}</span>
           </p>
           <p className="p-2">
-            <span className="font-bold">D.O.B.:</span>{' '}
-            <span className="text-white">{dateOfBirth}</span>
+            <span className="font-bold">D.O.B :</span>{' '}
+            <span className="text-black">{dateOfBirth}</span>
           </p>
         </div>
       </div>
+      
     </div>
   );
 }

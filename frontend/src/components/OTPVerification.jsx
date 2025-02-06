@@ -55,8 +55,7 @@ function OTPVerification() {
 
   return (
     <div
-      style={{ backgroundColor: '#023047' }}
-      className="flex flex-col items-center h-screen pt-8 bg-gray-100"
+      className="flex flex-col bg-black items-center h-screen pt-8 bg-gray-100"
     >
       <h2 className="text-4xl text-white font-semibold mt-44 mb-4">Enter 6-Digit Code</h2>
       <p className="text-xl text-white mb-4">Verification Code: {verificationCode}</p>
@@ -76,6 +75,8 @@ function OTPVerification() {
         onClick={handleSubmit}
         className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
         disabled={isDisabled}
+      style={{backgroundColor : "#457b9d"}}
+
       >
         Verify
       </button>

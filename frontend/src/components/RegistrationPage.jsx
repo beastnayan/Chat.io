@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { FaCamera } from "react-icons/fa";
+import { useDispatch } from 'react-redux'
+import { setActiveUser } from "../store/AuthSlice";
 
 function RegistrationPage() {
+
   const [formData, setFormData] = useState({
     name: "",
     dob: "",
@@ -9,6 +12,7 @@ function RegistrationPage() {
   });
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,16 +35,25 @@ function RegistrationPage() {
     }
   };
 
+  const  GetUserLoggedInfo = () =>{
+   if(formData.name !== "" || formData.dob === "" || formData.username === "" || selectedImage === null){
+    console.log("name:",formData.name);
+    dispatch(setActiveUser({userName: formData.username, mobileNo: '', fullname: formData.name, dateOfBirth: formData.dob}));
+    
+  }
+}
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted:", formData);
     alert("Registration Successful!");
+    GetUserLoggedInfo()
+ 
   };
 
   return (
     <div
-      style={{ backgroundColor: "#023047" }}
-      className="flex flex-col items-center min-h-screen justify-center px-4"
+      className="flex flex-col bg-black border-white items-center min-h-screen justify-center px-4"
     >
       {/* Image Upload Section */}
       <div className="relative mb-8">
@@ -76,7 +89,7 @@ function RegistrationPage() {
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded px-6 py-6 sm:px-8 sm:py-8 w-full max-w-sm sm:max-w-md"
+        className="bg-black border-white border-2 shadow-md rounded px-6 py-6 sm:px-8 sm:py-8 w-full max-w-sm sm:max-w-md"
       >
         <h2 className="text-xl sm:text-2xl font-bold text-center text-blue-600 mb-4">
           Register
@@ -84,45 +97,48 @@ function RegistrationPage() {
 
         {/* Name Input */}
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm sm:text-base font-bold mb-2">
+          <label className="block text-white text-sm sm:text-base font-bold mb-2">
             Full Name
           </label>
           <input
             type="text"
             name="name"
+            required={true}
             value={formData.name}
             onChange={handleChange}
             placeholder="Enter your full name"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border bg-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
 
         {/* Date of Birth Input */}
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm sm:text-base font-bold mb-2">
+          <label className="block text-white text-sm sm:text-base font-bold mb-2">
             Date of Birth
           </label>
           <input
             type="date"
             name="dob"
+            required={true}
             value={formData.dob}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border bg-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
 
         {/* Username Input */}
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm sm:text-base font-bold mb-2">
+          <label className="block text-white text-sm sm:text-base font-bold mb-2">
             Username
           </label>
           <input
             type="text"
             name="username"
+            required={true}
             value={formData.username}
             onChange={handleChange}
             placeholder="Create a username"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border bg-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
 
@@ -130,7 +146,7 @@ function RegistrationPage() {
         <div className="flex items-center justify-between">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+            className="bg-blue-500 hover:bg-gray-300 text-black bg-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
           >
             Register
           </button>
