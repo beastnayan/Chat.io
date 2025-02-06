@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import AuthReducer from './AuthSlice'; // ✅ Correct
+import AuthReducer from './AuthSlice'; 
 
 const store = configureStore({
     reducer: {
@@ -8,6 +8,6 @@ const store = configureStore({
 })
 
 
-export default store; // ✅ Correct
+export default store; 
 
 

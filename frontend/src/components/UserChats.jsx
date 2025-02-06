@@ -67,8 +67,8 @@ export default function UserChats({
             key={index}
             className={`mb-2 p-2 rounded-lg min-w-[30%] h-auto max-w-[70%] break-all ${
               message.sender === "user"
-                ? "bg-green-500 text-white self-start"
-                : "bg-gray-300 text-black self-start"
+                ? "bg-green-500  text-white self-start"
+                : "bg-gray-300 text-black self-"
             }`}
           >
             {message.text}

@@ -2,21 +2,17 @@
 import React, { useState }  from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-
-
-
-
-
-
+import { useDispatch } from "react-redux";
+import { setActiveUser  } from "../store/AuthSlice";
 
 
 function LoginPage() {
 
-const [phoneNumber , setphoneNumber] = useState('')
+const [ phoneNumber , setphoneNumber] = useState('')
 const [error , setError] = useState('')
 
 const navigate = useNavigate();
+const dispatch = useDispatch();
 
 
 function handelInputChange(e){
@@ -30,29 +26,18 @@ async function handelSendOTP()
     const phonePattern = /^\d{10}$/;
 
 
-    if (phonePattern.test(phoneNumber)) {
+    if ( phonePattern.test( phoneNumber)) {
 
         try{
-
-        let response = await axios.post("/api/v1/send-otp", {phoneNumber})
-
-        console.log(response.data);
-        
-        navigate("/otp")
-      
-
-            
+            let response = await axios.post("/api/v1/send-otp", { phoneNumber})
+            navigate("/otp")
+            dispatch(setActiveUser({phoneNumber:  phoneNumber}))
         } 
         catch (error) {
-           
             console.log("Enter valid mobile no to recive otp: ",error);
-            
-            
         }
-        console.log('Sending OTP to:', phoneNumber);
-        setphoneNumber("")
-  
-       
+            console.log('Sending OTP to:',  phoneNumber);
+            setphoneNumber("")
     } else {
         // Invalid phone number
         setError('Please enter a valid 10-digit mobile number');

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import { useDispatch } from 'react-redux'
-import { setActiveUser } from "../store/AuthSlice";
+import { setActiveUser , clearActiveUser } from "../store/AuthSlice";
 
 function RegistrationPage() {
 
@@ -35,19 +35,35 @@ function RegistrationPage() {
     }
   };
 
+  // here need to fetch api call this is for reference 
+
   const  GetUserLoggedInfo = () =>{
-   if(formData.name !== "" || formData.dob === "" || formData.username === "" || selectedImage === null){
-    console.log("name:",formData.name);
-    dispatch(setActiveUser({userName: formData.username, mobileNo: '', fullname: formData.name, dateOfBirth: formData.dob}));
-    
-  }
+   if(formData.name !== "" || 
+    formData.dob === "" || 
+    formData.username === "" || 
+    selectedImage === null)
+    {
+        console.log("name:",formData.name);
+        dispatch(setActiveUser({userName: formData.username, mobileNo: '', fullname: formData.name, dateOfBirth: formData.dob}));
+        setFormData({
+        name: "",
+        dob: "",
+        username: "",})
+    }else{
+      console.log("empty:");
+      dispatch( clearActiveUser({userName: '', mobileNo: '', fullname: '', dateOfBirth: ''}));
+    }
 }
+
+
+// -------------------------------------------------
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted:", formData);
     alert("Registration Successful!");
     GetUserLoggedInfo()
+   
  
   };
 

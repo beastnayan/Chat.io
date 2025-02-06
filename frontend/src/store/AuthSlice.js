@@ -4,10 +4,11 @@ import { createSlice } from '@reduxjs/toolkit'; // ✅ Correct
 
 const initialState = {
     activeUser: false,
-    userName: '',
-    mobileNo: '',
-    fullname: '',
-    dateOfBirth: '',
+    userName: 'raju@123',
+    phoneNumber: '0000000000',
+    fullname: 'Rajesh',
+    dateOfBirth: '02.02.1999',
+    
     messages: [{type: '', sender: ''}]
 }
 
@@ -19,7 +20,7 @@ const AuthSlice = createSlice({
         setActiveUser: (state, action) => {
             state.activeUser = true;
             state.userName = action.payload.userName;
-            state.mobileNo = action.payload.mobileNo;
+            state.phoneNumber = action.payload.phoneNumber;
             state.fullname = action.payload.fullname;
             state.dateOfBirth = action.payload.dateOfBirth;
         },
@@ -44,6 +45,6 @@ const AuthSlice = createSlice({
 
 })
 
-export const {setActiveUser, setMessages, clearMessages} =  AuthSlice.actions;
+export const {setActiveUser, setMessages, clearMessages , clearActiveUser} =  AuthSlice.actions;
 
 export default AuthSlice.reducer; 
