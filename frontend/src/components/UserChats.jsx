@@ -6,7 +6,7 @@ export default function UserChats({
   userName,
   dateOfBirth,
   fullName,
-  mobilenumber,
+  phoneNumber,
 }) {
   const [inputMessage, setInputMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -103,7 +103,7 @@ export default function UserChats({
           <UserSettings
             userName={userName}
             fullName={fullName}
-            mobilenumber={mobilenumber}
+            phoneNumber={phoneNumber}
             dateOfBirth={dateOfBirth}
             userProfilePicture={userProfilePicture}
             openUserSetting={openUserSetting}

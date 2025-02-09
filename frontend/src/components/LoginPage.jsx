@@ -29,12 +29,17 @@ async function handelSendOTP()
     if ( phonePattern.test( phoneNumber)) {
 
         try{
-            let response = await axios.post("/api/v1/send-otp", { phoneNumber})
+            let response = await axios({
+                method: "POST",
+                url: "/api/v1/send-otp",
+                data: { phoneNumber: phoneNumber },
+            })
+            console.log("OTP sent successfully: ", response.data);
             navigate("/otp")
             dispatch(setActiveUser({phoneNumber:  phoneNumber}))
         } 
         catch (error) {
-            console.log("Enter valid mobile no to recive otp: ",error);
+            console.log("Error from axios: ",error);
         }
             console.log('Sending OTP to:',  phoneNumber);
             setphoneNumber("")

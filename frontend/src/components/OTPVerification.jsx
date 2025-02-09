@@ -55,7 +55,8 @@ function OTPVerification() {
 
   return (
     <div
-      className="flex flex-col bg-black items-center h-screen pt-8 bg-gray-100"
+      className="flex flex-col bg-black-90 items-center h-screen pt-8 "
+      style={{ backgroundColor: '#000' }}
     >
       <h2 className="text-4xl text-white font-semibold mt-44 mb-4">Enter 6-Digit Code</h2>
       <p className="text-xl text-white mb-4">Verification Code: {verificationCode}</p>

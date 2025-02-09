@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import { useDispatch } from 'react-redux'
 import { setActiveUser , clearActiveUser } from "../store/AuthSlice";
+import axios from "axios";  
 
 function RegistrationPage() {
 
@@ -50,19 +51,43 @@ function RegistrationPage() {
         dob: "",
         username: "",})
     }else{
-      console.log("empty:");
-      dispatch( clearActiveUser({userName: '', mobileNo: '', fullname: '', dateOfBirth: ''}));
+        console.log("empty:");
+        dispatch( clearActiveUser({userName: '', mobileNo: '', fullname: '', dateOfBirth: ''}));
     }
 }
 
 
 // -------------------------------------------------
 
+
+const sendformDtata = async () => {
+
+  try {
+    const sendData = await axios({
+      method:"Post",
+      url:"/api/v1/register",
+      data: formData
+    })
+    console.log("Data sent successfully", sendData.data); 
+
+    
+    
+  } catch (error)
+    {
+    console.log("error", error);  
+    
+  }
+
+}
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted:", formData);
     alert("Registration Successful!");
     GetUserLoggedInfo()
+    sendformDtata()
+
    
  
   };
