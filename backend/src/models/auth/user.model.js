@@ -1,12 +1,12 @@
 import mongoose , { Schema } from 'mongoose';
+import jwt from 'jsonwebtoken';
+
 
 const UserSchema = new Schema(
     {
-        userImage : {
-            type:{
-                url: String,
-                localPath: String
-            }
+        userImage: {
+            url: { type: String },
+            localPath: { type: String }
         },
 
         username:{
@@ -14,7 +14,7 @@ const UserSchema = new Schema(
             required:true,
             unique:true,
             trim:true,
-            Lowercaese:true,
+            lowercase:true,
         },
 
         fullname:{
@@ -43,14 +43,14 @@ const UserSchema = new Schema(
         },
 
         
-    }
+    },
 
 
-   
+   {timestamps:true}
 
 );
 
-userSchema.methods.generateAcessTokens = function() {
+UserSchema.methods.generateAcessTokens = function() {
    return jwt.sign(
     {
         _id: this._id,
@@ -67,7 +67,7 @@ userSchema.methods.generateAcessTokens = function() {
    )
 }
 
-userSchema.methods.generateRefershTokens = function() {
+UserSchema.methods.generateRefershTokens = function() {
     return jwt.sign(
         {
             _id: this._id,
