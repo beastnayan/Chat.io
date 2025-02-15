@@ -10,7 +10,7 @@ const OTPSchema = new Schema(
         },
 
         phonenumber :{
-            type:string,
+            type:String,
             required:true,
         },
 

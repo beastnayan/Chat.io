@@ -8,7 +8,7 @@ import { setActiveUser  } from "../store/AuthSlice";
 
 function LoginPage() {
 
-const [ phoneNumber , setphoneNumber] = useState('')
+const [ phonenumber , setPhoneNumber] = useState('')
 const [error , setError] = useState('')
 
 const navigate = useNavigate();
@@ -16,7 +16,7 @@ const dispatch = useDispatch();
 
 
 function handelInputChange(e){
-    setphoneNumber(e.target.value)
+    setPhoneNumber(e.target.value)
 }
 
 
@@ -26,23 +26,23 @@ async function handelSendOTP()
     const phonePattern = /^\d{10}$/;
 
 
-    if ( phonePattern.test( phoneNumber)) {
+    if ( phonePattern.test( phonenumber)) {
 
         try{
             let response = await axios({
                 method: "POST",
-                url: "/api/v1/send-otp",
-                data: { phoneNumber: phoneNumber },
+                url: "/api/v1/otp",
+                data: { phonenumber: phonenumber },
             })
+            console.log("Response from axios: ", response.data);
+            dispatch(setActiveUser({ phonenumber: phonenumber }))
             console.log("OTP sent successfully: ", response.data);
             navigate("/otp")
-            dispatch(setActiveUser({phoneNumber:  phoneNumber}))
+            setPhoneNumber("")
         } 
         catch (error) {
             console.log("Error from axios: ",error);
         }
-            console.log('Sending OTP to:',  phoneNumber);
-            setphoneNumber("")
     } else {
         // Invalid phone number
         setError('Please enter a valid 10-digit mobile number');
@@ -69,7 +69,7 @@ setTimeout(() => {
                 type="text"
                 placeholder="Enter your mobile number"
                 className="border border-gray-300 rounded-md p-2 mb-4 w-64 text-center"
-                value={phoneNumber}
+                value={phonenumber}
                 onChange={handelInputChange}
                 style={{backgroundColor : "#457b9d"}}
 

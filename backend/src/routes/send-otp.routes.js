@@ -1,5 +1,17 @@
-// import {Router} from "express"
+import express from "express";
+// const { sendOtpToUser } = require("../controllers/authController");
+import { sendOtpToUser } from "../controllers/otp.controllers.js";
+import { Router } from "express";
 
-// const router = Router();
+const router = Router();
 
-// router.route("/api/v1/send-otp").post(console.log("recived"))
+// router.post("/api/v1/otp", (req, res) => {
+//     console.log("Send OTP route hit");
+    
+//     // Call the function to send OTP
+//     sendOtpToUser(req, res);
+//   });
+
+router.route("/otp").post(sendOtpToUser);
+
+export default router;

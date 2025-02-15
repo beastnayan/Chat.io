@@ -5,7 +5,7 @@ import { createSlice } from '@reduxjs/toolkit'; // ✅ Correct
 const initialState = {
     activeUser: false,
     userName: 'raju@123',
-    phoneNumber: '0000000000',
+    phonenumber: '0000000000',
     fullname: 'Rajesh',
     dateOfBirth: '02.02.1999',
     
@@ -20,7 +20,7 @@ const AuthSlice = createSlice({
         setActiveUser: (state, action) => {
             state.activeUser = true;
             state.userName = action.payload.userName;
-            state.phoneNumber = action.payload.phoneNumber;
+            state.phonenumber = action.payload.phonenumber;
             state.fullname = action.payload.fullname;
             state.dateOfBirth = action.payload.dateOfBirth;
         },
@@ -28,7 +28,7 @@ const AuthSlice = createSlice({
         clearActiveUser: (state) => {
             state.activeUser = false;
             state.userName = '';
-            state.mobileNo = '';
+            state.phonenumber = '';
             state.fullname = '';
             state.dateOfBirth = '';
         },  

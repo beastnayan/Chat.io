@@ -1,30 +1,23 @@
-
-
 import express from "express";
-const app = express();
-
 import { createServer } from "http";
-import { Server } from "socket.io";
-
-
-
-
-
-
+import cors from "cors";
 // Create the HTTP server with Express
-const server = createServer(app);
+import router from "./routes/send-otp.routes.js";
 
-// Initialize Socket.IO with the server
-const io = new Server(server);
+const app = express();
+const server = createServer(app);   
+app.use(express.json()); // Enable JSON parsing
+app.use(cors({ origin: "*", credentials: true })); // Allow frontend requests
+app.use("/api/v1/otp", router);
 
-// Listen for incoming connections on Socket.IO
-io.on("connection", (socket) => {
-    console.log("socket is connected: " , socket);
 
-    socket.on("chat", (payload) => {
-        console.log(" A user connected: " ,  payload);
-    });
+
+
+app.get("/", (req, res) => {
+    res.send("Server is running on port 3000");
 });
+
+
 
 
 export default server;
