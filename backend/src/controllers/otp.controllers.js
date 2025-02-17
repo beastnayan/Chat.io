@@ -7,13 +7,13 @@ const sendOtpToUser = async (req, res) => {
         console.log("Received request body:", req.body);
         const { phonenumber } = req.body;
 
-        const user = await User.findOne({ phonenumber });
+        // const user = await User.findOne({ phonenumber });
 
-        if (!user) {
-            return res.status(400).json({
-                message: "User not found",
-            });
-        }
+        // if (!user) {
+        //     return res.status(400).json({
+        //         message: "User not found",
+        //     });
+        // }
 
         const generatedOtp = generateOTP();
 
