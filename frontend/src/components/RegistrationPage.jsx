@@ -74,7 +74,7 @@ const sendformDtata = async () => {
     
   } catch (error)
     {
-    console.log("error", error);  
+    console.log("error message", error);  
     
   }
 
@@ -84,9 +84,11 @@ const sendformDtata = async () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted:", formData);
-    alert("Registration Successful!");
+    console.log(formData.name , ":Name");
+    
     GetUserLoggedInfo()
     sendformDtata()
+    // alert("Registration Successful!");
 
    
  

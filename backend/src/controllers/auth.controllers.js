@@ -57,13 +57,13 @@ const loginUSer = async (req , res) => {
     
     const {phonenumber,username} = req.body;
     
-    const createdUser = await User.findOne({phonenumber,username});
+    const userExists = await User.findOne({phonenumber,username});
 
-    if(!createdUser){
+    if(!userExists){
         return res.status(400).json({message : "User does not exist. Register Yourself"})
     }
 
-    const {acessToken,refreshToken} =await generateAcessTokenAndRefreshToken(createdUser._id);
+    const {acessToken,refreshToken} =await generateAcessTokenAndRefreshToken(userExists._id);
 
     res.status(200).json(
         {

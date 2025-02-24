@@ -1,59 +1,60 @@
 
-import React, { useState }  from "react";
+import React, { useState , useEffect }  from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setActiveUser  } from "../store/AuthSlice";
+import { setActiveUser, setOtp  } from "../store/AuthSlice";
 
 
 function LoginPage() {
 
 const [ phonenumber , setPhoneNumber] = useState('')
-const [error , setError] = useState('')
 
 const navigate = useNavigate();
 const dispatch = useDispatch();
 
 
 function handelInputChange(e){
-    setPhoneNumber(e.target.value)
+   
+  setPhoneNumber(e.target.value)
 }
 
 
-async function handelSendOTP()
-{
-    // Validate phone number to be exactly 10 digits and numeric
+
+async function handelSendOTP() {
     const phonePattern = /^\d{10}$/;
+  
+    if (phonePattern.test(phonenumber)) {
+      console.log("Entered in if condition");
+      console.log("Phone number:", phonenumber); // Log the phone number
+  
+      try {
+        console.log("Sending request to:", `phonenumber=${phonenumber}`);
+  
+        let response = await axios.get("/api/v1/otp", {
+          params: { phonenumber: phonenumber.trim() || "" }
+        });
 
-
-    if ( phonePattern.test( phonenumber)) {
-
-        try{
-            let response = await axios({
-                method: "POST",
-                url: "/api/v1/otp",
-                data: { phonenumber: phonenumber },
-            })
-            console.log("Response from axios: ", response.data);
-            dispatch(setActiveUser({ phonenumber: phonenumber }))
-            console.log("OTP sent successfully: ", response.data);
-            navigate("/otp")
-            setPhoneNumber("")
-        } 
-        catch (error) {
-            console.log("Error from axios: ",error);
-        }
+       
+  
+        console.log("Response from axios: ", response.data.otp); 
+       
+  
+        dispatch(setActiveUser({ phonenumber: phonenumber , otp: response.data.otp }));
+        dispatch(setOtp({ otp: response.data.otp }));
+        console.log("Phone number sent: ", phonenumber);
+        navigate("/otp");
+      } catch (error) {
+        console.log("Error from axios: ", error.response ? error.response.data : error.message);
+        console.log("Error status: ", error.response ? error.response.status : "No status");
+        console.log("Error details: ", error);
+      }
     } else {
-        // Invalid phone number
-        setError('Please enter a valid 10-digit mobile number');
+    //   setError('Please enter a valid 10-digit mobile number');
+    console.log("Please enter a valid 10-digit mobile number");
+    
     }
-};
-
-
-
-setTimeout(() => {
-    setError("");
-  }, 5000); // 5000 milliseconds = 5 seconds
+  }
 
 
     return (
@@ -75,7 +76,7 @@ setTimeout(() => {
 
             />
 
-            <span className="mt-4 mb-4 text-red-400">{error}</span>
+            {/* <span className="mt-4 mb-4 text-red-400">{error}</span> */}
 
 
             <button

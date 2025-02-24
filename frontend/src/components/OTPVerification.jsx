@@ -1,32 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setOtp , clearOtp } from '../store/AuthSlice';
+import { useDispatch,useSelector } from 'react-redux';
 
 function OTPVerification() {
-  const [verificationCode, setVerificationCode] = useState('');
+  // const [verificationCode, setVerificationCode] = useState('');
   const [inputCode, setInputCode] = useState('');
   const [timer, setTimer] = useState(60);
   const [isDisabled, setIsDisabled] = useState(false);
 
   const navigate = useNavigate(); 
+  const otp = useSelector(state => state.auth.otp);
+  const phonenumber = useSelector(state => state.auth.phonenumber);
+  const dispatch = useDispatch();
 
-  // Generate a new verification code
-  const generateVerificationCode = () => {
-    const code = Math.floor(100000 + Math.random() * 900000); // 6-digit number
-    setVerificationCode(code);
-    setTimer(60); // Reset timer
-    setIsDisabled(false);
-  };
 
-  useEffect(() => {
-    generateVerificationCode();
-  }, []);
-
-  // Countdown timer logic
   useEffect(() => {
     if (timer === 0) {
       setIsDisabled(true);
       return;
     }
+
+    console.log(phonenumber , " q phonenumber");
+    console.log(otp , " q otp");
+    
+    
 
     const interval = setInterval(() => {
       setTimer((prevTimer) => prevTimer - 1);
@@ -37,16 +35,43 @@ function OTPVerification() {
 
   const handleInputChange = (e) => {
     setInputCode(e.target.value);
+   
   };
 
   // Handle the verification code submission
   const handleSubmit = () => {
-    if (inputCode === verificationCode.toString()) {
+    if (inputCode === otp.toString()) {
       alert('Verification successful!');
     } else {
       alert('Invalid verification code.');
     }
   };
+
+  // Resend OTP
+  const resendOtp = async () => { 
+ 
+      try {
+      
+        dispatch(clearOtp());
+
+        let response = await axios.get("/api/v1/resend-otp", {
+          params: { phonenumber: phonenumber?.trim() || "" }
+        });
+
+        console.log("New Otp : " , response.data.otp);
+        
+        
+        dispatch(setOtp({ otp: response.data.otp }));
+        setTimer(60);
+        setIsDisabled(false);
+       
+  
+      } catch (error) {
+        
+        console.log("failed to generate new otp")
+      }
+
+  }
 
   // Navigate back to the login page
   const handleBackToLogin = () => {
@@ -59,7 +84,7 @@ function OTPVerification() {
       style={{ backgroundColor: '#000' }}
     >
       <h2 className="text-4xl text-white font-semibold mt-44 mb-4">Enter 6-Digit Code</h2>
-      <p className="text-xl text-white mb-4">Verification Code: {verificationCode}</p>
+      <p className="text-xl text-white mb-4">Verification Code: {otp}</p>
 
       <input
         type="text"
@@ -90,7 +115,7 @@ function OTPVerification() {
       {/* Resend OTP */}
       {timer === 0 && (
         <button
-          onClick={generateVerificationCode}
+          onClick={resendOtp}
           className="mt-4 bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600"
         >
           Resend OTP
